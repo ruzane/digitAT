@@ -15,37 +15,62 @@ class _HomeOptionsState extends State<HomeOptions> {
     return Scaffold(
       body:  ListView(
         children: <Widget>[
+          Container(
+              height: 200.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft:Radius.circular(50.0),bottomRight: Radius.circular(50.0)),
+                image: DecorationImage(
+                  image:AssetImage('images/image-home.jpeg'),
+                  fit: BoxFit.cover,
+                  ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(50.0),bottomRight: Radius.circular(50.0)),
+                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                  ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 50.0,right:50.0,left: 50.0 ),
+              height: 10,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.10), offset: Offset(0,4), blurRadius: 10)
+                ],
+              ),),
           ListTile(
-            
+            leading: Image(image: AssetImage('images/nurse.png'),),
             title:Text('Doctors'),
            onTap:(){
                Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
            }
           ),
            ListTile(
-            
+            leading: Image(image: AssetImage('images/pill.png'),),
             title:Text('PharmaHub'),
                 onTap:(){
                Navigator.of(context).pushNamed('/medecines');
            }
           ),
            ListTile(
-            
+            leading: Icon(Icons.local_hospital),
             title:Text('Hospitals'),
 
           ),
            ListTile(
-            
+            leading: Image(image: AssetImage('images/microscope.png'),),
             title:Text('TheLab'),
 
           ),
            ListTile(
-            
+            leading: Icon(Icons.scanner),
             title:Text('ScaniT'),
 
           ),
            ListTile(
-            
+            leading: Icon(Icons.payment),
             title:Text('MoneyTel'),
 
           ),
