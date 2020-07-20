@@ -29,7 +29,7 @@ class _BookTestsOnlineFourthStepState extends State<BookTestsOnlineFourthStep> {
         ),
         backgroundColor: Theme.of(context).accentColor,
         title: Text(
-          'Book test & package online ...',
+          'ScaniT',
           style: TextStyle(
             fontSize:18.0,
             fontFamily: 'Poppins',

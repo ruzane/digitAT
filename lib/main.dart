@@ -15,23 +15,32 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      
            debugShowCheckedModeBanner: false,
           home: Scaffold(
             body: SplashScreen(
-          seconds: 5,
+
+              imageBackground: AssetImage('images/splash.jpg'),
+            seconds: 3,
           navigateAfterSeconds: new AfterSplash(),
-          title: new Text('beyond connectivity',
-          style: new TextStyle(
-            fontStyle: FontStyle.italic,
-            fontSize: 12.0
-          ),),
-          image: Image(image: AssetImage('images/digitAT-white.png'),
-                      ),
-          backgroundColor: Hexcolor('#707c9c'),
+          title:Text(
+                    'Welcome To \n digitAT',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color:Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                      fontFamily: "Bauhaus"
+                    ),
+                  ),
+      
+          /*image: Image(image: AssetImage('images/digitAT-white.png'),
+                      ),*/
+          backgroundColor:Hexcolor('#8582c4').withOpacity(0.8),
          // styleTextUnderTheLoader: new TextStyle(),
           photoSize: 100.0,
-         /* onClick: ()=>print("Flutter Egypt"),
-          loaderColor: Colors.red*/
+         // onClick: ()=>print("Flutter Egypt"),
+          loaderColor:Hexcolor('#8582c4'),
         ),
       ),
     );

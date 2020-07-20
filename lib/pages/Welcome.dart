@@ -14,7 +14,7 @@ class _WelcomeState extends State<Welcome> {
         pageSnapping: true,
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          GetStarted(),
+         // GetStarted(),
           OnBoardingWidget(),
         ],
       ),

@@ -170,7 +170,7 @@ class _HomeState extends State<Home> {
             ],
           ),      
           Container(
-            margin: const EdgeInsets.only(top: 6.0,bottom: 6.0),
+           // margin: const EdgeInsets.only(top: 6.0,bottom: 6.0),
             padding: const EdgeInsets.only(left: 30.0 , right: 35.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -294,7 +294,7 @@ class _HomeState extends State<Home> {
                 FlatButton(
                   onPressed: (){},
                   child: Text(
-                    'Doctors nearly  you ',
+                    'Doctors near  you ',
                     style: TextStyle(
                     fontSize:12.0,
                     fontFamily: 'Poppins',

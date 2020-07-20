@@ -30,7 +30,7 @@ class _MedecinesSlectedState extends State<MedecinesSlected> {
         ),
         backgroundColor: Theme.of(context).accentColor,
         title: Text(
-          'Medicines',
+          'PharmaHub',
           style: TextStyle(
             fontSize:22.0,
             fontFamily: 'Poppins',
