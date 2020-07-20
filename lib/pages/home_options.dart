@@ -13,7 +13,8 @@ class _HomeOptionsState extends State<HomeOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  ListView(
+      body:  Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(
               height: 200.0,
@@ -40,7 +41,101 @@ class _HomeOptionsState extends State<HomeOptions> {
                     color: Colors.grey.withOpacity(0.10), offset: Offset(0,4), blurRadius: 10)
                 ],
               ),),
-          ListTile(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: <Widget>[
+                  RaisedButton(child: Text("Doctors"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+
+                },
+                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+                color:Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              ),
+                   RaisedButton(child: Text("PharmaHub"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/medecines');
+
+                },
+                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+                color:Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              )
+                 ],   
+              ),
+                       Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: <Widget>[
+                  RaisedButton(child: Text("ScaniT"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+
+                },
+                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              ),
+                   RaisedButton(child: Text("MoneyTel"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/medecines');
+
+                },
+                                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              )
+                 ],   
+              ),
+                       Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: <Widget>[
+                  RaisedButton(child: Text("Hospitals"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+
+                },
+                                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              ),
+                   RaisedButton(child: Text("TheLab"),
+                onPressed: (){
+               Navigator.of(context).pushNamed('/medecines');
+
+                },
+                shape: RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(18.0)
+),
+
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+               
+              )
+                 ],   
+              ),
+                /*      ListTile(
             leading: Image(image: AssetImage('images/nurse.png'),),
             title:Text('Doctors'),
            onTap:(){
@@ -73,7 +168,7 @@ class _HomeOptionsState extends State<HomeOptions> {
             leading: Icon(Icons.payment),
             title:Text('MoneyTel'),
 
-          ),
+          ),*/
       
         ]
         )

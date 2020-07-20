@@ -31,7 +31,7 @@ class _MedecinesState extends State<Medecines> {
         ),
         backgroundColor: Theme.of(context).accentColor,
         title: Text(
-          'Medicines',
+          'PharmaHub',
           style: TextStyle(
             fontSize:22.0,
             fontFamily: 'Poppins',
@@ -65,7 +65,7 @@ class _MedecinesState extends State<Medecines> {
               padding:EdgeInsets.only(top:12.0,right: 12.0,left: 12.0,bottom: 12.0),
               alignment: Alignment.topLeft,
               child: Text(
-                'Medecines :',
+                'Medicines :',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16.0,

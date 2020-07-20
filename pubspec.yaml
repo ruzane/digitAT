@@ -111,6 +111,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
+    - family: Bauhaus
+      fonts:
+        - asset: fonts/Bauhaus 93 Regular.ttf
     - family: LexendDeca
       fonts:
         - asset: fonts/LexendDeca-Regular.ttf

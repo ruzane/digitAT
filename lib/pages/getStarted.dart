@@ -32,7 +32,7 @@ class _GetStartedState extends State<GetStarted> {
                       color:Theme.of(context).primaryColor.withOpacity(0.8),
                       fontWeight: FontWeight.bold,
                       fontSize: 30.0,
-                      fontFamily: "Poppins"
+                      fontFamily: "Bauhaus"
                     ),
                   ),
                 ),

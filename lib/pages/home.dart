@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:digitAT/models/user.dart';
 
 class Home extends StatefulWidget {
   final String value;
@@ -9,17 +10,106 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+User currentUser=new User.init().getCurrentUser();
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+     Center(
+    
+       child: Padding(
+         padding: const EdgeInsets.all(8.0),
+         child: Text(
+                              "${widget.value}",
+                              style: TextStyle(
+                          
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+       ),
+     ),
+        ],
+        iconTheme: new IconThemeData(color: Theme.of(context).primaryColor),
+        backgroundColor: Theme.of(context).accentColor,
+        title:    Text(
+                          'digitAT',
+                          style: TextStyle(
+                            fontSize:22.0,
+                            fontFamily: 'Bauhaus',
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor.withOpacity(0.8),
+                          ),
+                        ),),
+      drawer: Drawer(
+  // Add a ListView to the drawer. This ensures the user can scroll
+  // through the options in the drawer if there isn't enough vertical
+  // space to fit everything.
+  child: ListView(
+    // Important: Remove any padding from the ListView.
+    padding: EdgeInsets.zero,
+    children: <Widget>[
+      DrawerHeader(
+        child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text("digitAT",
+                 style: TextStyle(
+                   color: Theme.of(context).primaryColor,
+                            fontSize:22.0,
+                            fontFamily: 'Bauhaus',))
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).accentColor,
+        ),
+      ),
+ ListTile(
+            leading: Image(image: AssetImage('images/nurse.png'),),
+            title:Text('Doctors'),
+           onTap:(){
+               Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+           }
+          ),
+           ListTile(
+            leading: Image(image: AssetImage('images/pill.png'),),
+            title:Text('PharmaHub'),
+                onTap:(){
+               Navigator.of(context).pushNamed('/medecines');
+           }
+          ),
+           ListTile(
+            leading: Icon(Icons.local_hospital),
+            title:Text('Hospitals'),
+
+          ),
+           ListTile(
+            leading: Icon(Icons.local_hospital),
+            title:Text('TheLab'),
+
+          ),
+           ListTile(
+            leading: Image(image: AssetImage('images/microscope.png'),),
+
+            title:Text('ScaniT'),
+
+          ),
+           ListTile(
+            leading: Icon(Icons.payment),
+            title:Text('MoneyTel'),
+
+          ),
+    ],
+  ),
+),
       body: SingleChildScrollView(
         child: Column(
         children: <Widget>[
           Stack(
             children: <Widget>[
               Container(
-                height: 120,
+                height:50.0,
                 padding: const EdgeInsets.only(left:20.0,right: 20.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(bottomLeft:Radius.circular(25.0),bottomRight: Radius.circular(25.0)),
@@ -28,38 +118,22 @@ class _HomeState extends State<Home> {
                 child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'digitAT',
-                          style: TextStyle(
-                            fontSize:22.0,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor.withOpacity(0.8),
-                          ),
-                        ),
-                        Text(
-                          "${widget.value}",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16.0,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
+                   Row(
+                     children: <Widget>[
+                       Text('')
+                     ],
+                   )
                   ],
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 80.0),
+                margin: const EdgeInsets.only(top: 5.0),
                 padding: const EdgeInsets.only(left: 30.0 , right: 30.0),
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
+                       
                       padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(150)),
@@ -69,8 +143,10 @@ class _HomeState extends State<Home> {
                       child:ball("images/nurse.png",Theme.of(context).scaffoldBackgroundColor),
                     ),
                      FlatButton(
+                       
                       padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
+                      
                         borderRadius: BorderRadius.circular(150)),
                       onPressed: (){
                         Navigator.of(context).pushNamed('/medecines');
@@ -78,6 +154,7 @@ class _HomeState extends State<Home> {
                       child:ball("images/pill.png",Theme.of(context).scaffoldBackgroundColor),
                     ),
                      FlatButton(
+                        
                       padding: EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(150)),

@@ -43,7 +43,7 @@ class AfterSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ecommerce Flutter UI',
+      title: 'digitAT',
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
