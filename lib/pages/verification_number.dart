@@ -20,9 +20,13 @@ class VerificationNumber extends StatefulWidget {
 
 class _VerificationNumberState extends State<VerificationNumber> {
   User currentUser=new User.init().getCurrentUser();
+
+
   final GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    verificationId=widget.verificationId;
+
     return Scaffold(
         backgroundColor: Color(0xeeffffff),
         appBar: AppBar(
@@ -54,7 +58,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
             Container(
               margin: EdgeInsets.only(top: 12.0),
               child: Text(
-                'we have sent you an SMS on your ${widget.userPhoneNumber} \n with 6 digit verification cede.',
+                'we have sent you an SMS on your ${maskNumber(widget.userPhoneNumber)} \n with 6 digit verification code.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
@@ -231,7 +235,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
   signIn() async {
     try {
       final AuthCredential credential = PhoneAuthProvider.getCredential(
-        verificationId: verificationId,
+        verificationId: this.verificationId,
         smsCode: optController.text,
       );
       final FirebaseUser user =
@@ -245,7 +249,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
   }
 
   handleError(PlatformException error) {
-    print("Something went wrong");
+    print("Something went wrong" +verificationId + widget.userPhoneNumber);
     print(error);
     switch (error.code) {
       case 'ERROR_INVALID_VERIFICATION_CODE':

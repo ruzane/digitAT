@@ -67,7 +67,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                       children: <Widget>[
                         Container(
                           height: 40.0,
-                          width:kMinFlingVelocity,
+                          width:MediaQuery.of(context).size.width*0.27,
                           margin: EdgeInsets.only(top: 20.0 ,left: 12.0,right: 12.0),
                           decoration: BoxDecoration(
                             border: Border.all(width: 1.0,color: Color(0xdddddddd)),
@@ -80,7 +80,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                                 true, //displays flag, true by default
                                 showDialingCode:
                                 true, //displays dialing code, false by default
-                                showName: true, //eg. 'GBP'
+                                showName: false, //eg. 'GBP'
                                 onChanged: (Country country) {
                                   setState(() {
                                     _selected = country;
@@ -106,6 +106,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                             child:Center(
                               child: FormBuilderTextField(
                                 initialValue: "",
+                                controller: phoneNumberController,
                                 attribute: 'phoneNumber',
                                 validators: [
                                   FormBuilderValidators.required()
@@ -168,13 +169,15 @@ class _PhoneLoginState extends State<PhoneLogin> {
   TextEditingController phoneNumberController = new TextEditingController();
   void sendOTP(BuildContext context) {
     this.phoneNo="+"+this._selected.dialingCode+" "+this.phoneNumberController.text;
+    print("passing argument"+this.phoneNo);
     verifyPhone(this.phoneNo);
   }
 
   void verifyUser() {
 
     print("passing argument"+this.phoneNo);
-    Navigator.of(context).pushNamed('/verification');
+    Navigator.of(context).pop();
+//    Navigator.of(context).pushNamed('/verification');
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) =>
@@ -190,7 +193,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
       verifyUser();
     };
     try {
-      Navigator.of(context).pop();
+
       await _auth.verifyPhoneNumber(
           phoneNumber: userPhoneNumber, // PHONE NUMBER TO SEND OTP
           codeAutoRetrievalTimeout: (String verId) {
@@ -201,13 +204,15 @@ class _PhoneLoginState extends State<PhoneLogin> {
           timeout: const Duration(seconds: 45),
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print(phoneAuthCredential);
+            Navigator.of(context).pop();
 
           },
           verificationFailed: (AuthException exception) {
-
+            Navigator.of(context).pop();
             print('${exception.message}');
           });
     } catch (e) {
+      Navigator.of(context).pop();
       handleError(e);
     }
   }
