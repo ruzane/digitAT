@@ -114,7 +114,7 @@ class _DoctorsCardWidgetState extends State<DoctorsCardWidget> {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(100.0),
-        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover,
+        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover,
       ),
 
       ),

@@ -11,8 +11,6 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => new _MyAppState();
 }
 
-//Amose Test Push
-
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {

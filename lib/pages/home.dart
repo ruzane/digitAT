@@ -1,7 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:digitAT/models/user.dart';
+import 'package:http/http.dart' as http;
+import 'package:digitAT/models/doctor.dart';
 
+import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:digitAT/api/doctors.dart';
 class Home extends StatefulWidget {
   final String value;
   const Home( {Key key, this.value}) : super(key: key);
@@ -321,15 +330,20 @@ class _HomeState extends State<Home> {
             ),
           ),
           Container(
-            height: 180.0,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                card("images/asset-1.png","Dr.Alina james","B.Sc DDVL Demilitologist","4.2"),
-                card("images/asset-2.png","Dr.Steve Robert","B.Sc DDVL Demilitologist","3.6"),
-                card("images/asset-3.png","Dr. Senila Aaraf","B.Sc DDVL Demilitologist ","4.3"),
-              ],
-            ),
+            height: 200.0,
+            child:FutureBuilder<List<Widget>>(
+                future: _fetchDoctors(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Widget> data = snapshot.data;
+                    return _doctorsListView(data);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  return Container(
+                      height: 80.0,
+                      child: CircularProgressIndicator());
+                }),
           ),
         ],
       ),
@@ -357,7 +371,7 @@ class _HomeState extends State<Home> {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(100.0),
-        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover,),
+        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover,),
       ),
     );
   }
@@ -421,4 +435,63 @@ class _HomeState extends State<Home> {
     );
 
   }
+  List<Widget> _doctorsList;
+  Future<List<Widget>> _fetchDoctors() async {
+//  showAlertDialog(context);
+    final http.Response response = await http
+        .get(
+      'https://internationaltechnology.bitrix24.com/rest/1/nq1s3dbqiyy4m4lz/user.get.json?UF_DEPARTMENT=1',
+    )
+        .catchError((error) => print(error));
+    Map<String, dynamic> responseBody = jsonDecode(response.body);
+    List serverResponse = [];
+    _doctorsList = [];
+    if (response.statusCode == 200) {
+      try {
+        if (responseBody["result"] != null) {
+//        print(responseBody);
+          DepartmentUsers doctors_list = DepartmentUsers.fromJson(responseBody);
+          serverResponse = doctors_list.result;
+          doctors_list.result.forEach((user) {
+            print("------\n");
+            print(user.nAME);
+            print("------\n");
+            if(user.pERSONALPHOTO==null){
+              user.pERSONALPHOTO="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRQHLSQ97LiPFjzprrPgpFC83oCiRXC0LKoGQ&usqp=CAU";
+            }
+            _doctorsList.add(
+               card(
+                   user.pERSONALPHOTO,
+                  user.nAME + " " + user.lASTNAME,
+                  "B.Sc DDVL Demilitologist  ",
+                  "4.2",
+            ));
+          });
+
+          serverResponse = _doctorsList;
+        } else {
+          serverResponse = [];
+          print(response.body);
+        }
+      } catch (error) {
+        print(error);
+      }
+    } else {
+      print("Please check your internet connection ");
+      Fluttertoast.showToast(
+          msg: "Please check your internet connection ",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 4,
+          fontSize: ScreenUtil(allowFontScaling: false).setSp(16));
+    }
+    return serverResponse;
+  }
+
+  ListView _doctorsListView(data) {
+    return ListView(
+        scrollDirection: Axis.horizontal,
+        children: _doctorsList);
+  }
 }
+
