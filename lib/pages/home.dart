@@ -79,7 +79,16 @@ class _HomeState extends State<Home> {
                Navigator.of(context).pushNamed('/medecines');
            }
           ),
-           ListTile(
+             ListTile(
+            leading: Image(image: AssetImage('images/microscope.png'),),
+
+            title:Text('ScaniT'),
+            onTap: (){
+              Navigator.of(context).pushNamed('/bookTest');
+
+            },
+          ),
+               ListTile(
             leading: Icon(Icons.local_hospital),
             title:Text('Hospitals'),
 
@@ -89,15 +98,7 @@ class _HomeState extends State<Home> {
             title:Text('TheLab'),
 
           ),
-           ListTile(
-            leading: Image(image: AssetImage('images/microscope.png'),),
-
-            title:Text('ScaniT'),
-            onTap: (){
-              Navigator.of(context).pushNamed('/bookTest');
-
-            },
-          ),
+        
            ListTile(
             leading: Icon(Icons.payment),
             title:Text('MoneyTel'),
