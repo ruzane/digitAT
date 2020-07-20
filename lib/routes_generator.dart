@@ -39,7 +39,7 @@ class RouteGenerator {
       case '/createAcount':
         return MaterialPageRoute(builder: (_) => CreateAcount()); 
         case '/homeoptions':
-        return MaterialPageRoute(builder: (_) => HomeOptions(value: args,)); 
+        return MaterialPageRoute(builder: (_) => HomeOptions()); 
       case '/home':
         return MaterialPageRoute(builder: (_) => TabsWidget(acountInfos: args,));
       case '/chat' :

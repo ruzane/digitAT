@@ -2,8 +2,8 @@ import 'package:digitAT/models/user.dart';
 import 'package:flutter/material.dart';
 
 class HomeOptions extends StatefulWidget {
-  final String value;
-  const HomeOptions( {Key key, this.value}) : super(key: key);
+  
+  const HomeOptions( {Key key}) : super(key: key);
  
   @override
   _HomeOptionsState createState() => _HomeOptionsState();
@@ -13,8 +13,7 @@ class _HomeOptionsState extends State<HomeOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: ListView(
+      body:  ListView(
         children: <Widget>[
           ListTile(
             
@@ -53,7 +52,7 @@ class _HomeOptionsState extends State<HomeOptions> {
       
         ]
         )
-      )
+     
       );
 
   }

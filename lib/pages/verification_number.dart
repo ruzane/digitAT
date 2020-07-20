@@ -106,7 +106,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
                       color: Theme.of(context).accentColor,
                       onPressed: (){
                         if(_formKey.currentState.validate()){
-                          Navigator.of(context).pushNamed('/homeoptions',arguments: [currentUser.name,currentUser.phoneNumber]);
+                          Navigator.of(context).pushNamed('/homeoptions');
                         }
                       },
                       shape: RoundedRectangleBorder(
