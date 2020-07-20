@@ -132,7 +132,7 @@ class _MedecinesSlectedState extends State<MedecinesSlected> {
                     child:Container(
                       margin: EdgeInsets.only(left: 45.0,right: 45.0,top: 12,bottom: 12),
                       child:Text(
-                      '+ Add more medecines',
+                      '+ Add more medicines',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 12.0,

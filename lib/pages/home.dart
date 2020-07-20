@@ -93,7 +93,10 @@ class _HomeState extends State<Home> {
             leading: Image(image: AssetImage('images/microscope.png'),),
 
             title:Text('ScaniT'),
+            onTap: (){
+              Navigator.of(context).pushNamed('/bookTest');
 
+            },
           ),
            ListTile(
             leading: Icon(Icons.payment),
