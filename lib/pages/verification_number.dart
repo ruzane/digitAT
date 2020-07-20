@@ -6,14 +6,14 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:digitAT/models/user.dart';
 import'package:flutter_verification_code_input/flutter_verification_code_input.dart';
 
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 //import 'package:flutter/services.dart';
 
 class VerificationNumber extends StatefulWidget {
-  final String data ;
-  VerificationNumber({
-    Key key, 
-    @required this.data
-    }) : super(key: key);
+  final String userPhoneNumber, verificationId;
+  VerificationNumber(this.userPhoneNumber, this.verificationId);
   @override
   _VerificationNumberState createState() => _VerificationNumberState();
 }
@@ -54,7 +54,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
             Container(
               margin: EdgeInsets.only(top: 12.0),
               child: Text(
-                'we have sent you an SMS on your ${widget.data} \n with 6 digit verification cede.',
+                'we have sent you an SMS on your ${widget.userPhoneNumber} \n with 6 digit verification cede.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
@@ -106,7 +106,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
                       color: Theme.of(context).accentColor,
                       onPressed: (){
                         if(_formKey.currentState.validate()){
-               Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+                  verifyOTP();
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -201,6 +201,7 @@ class _VerificationNumberState extends State<VerificationNumber> {
           inputFormatters: [
             LengthLimitingTextInputFormatter(1),
           ],
+          controller: optController,
           keyboardType: TextInputType.number,
           style: new TextStyle(
             fontSize: 28.0,
@@ -210,6 +211,72 @@ class _VerificationNumberState extends State<VerificationNumber> {
       ),
       
     );
+  }
+  String smsOTP;
+  String verificationId;
+  String errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController phoneNumberController = new TextEditingController();
+  TextEditingController optController = new TextEditingController();
+  verifyOTP() {
+    _auth.currentUser().then((user) {
+      if (user != null) {
+        verifiedSuccess();
+      } else {
+        signIn();
+      }
+    });
+  }
+
+  signIn() async {
+    try {
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: verificationId,
+        smsCode: optController.text,
+      );
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+      verifiedSuccess();
+    } catch (e) {
+      handleError(e);
+    }
+  }
+
+  handleError(PlatformException error) {
+    print("Something went wrong");
+    print(error);
+    switch (error.code) {
+      case 'ERROR_INVALID_VERIFICATION_CODE':
+        FocusScope.of(context).requestFocus(new FocusNode());
+        setState(() {
+          errorMessage = 'You have entered an invalid OTP';
+        });
+        Navigator.of(context).pop();
+
+//        smsOTPDialog(context).then((value) {
+//          print('sign in');
+//        });
+        break;
+      default:
+        setState(() {
+          errorMessage = error.message;
+          print(errorMessage);
+          Navigator.of(context).pop();
+        });
+
+        break;
+    }
+  }
+
+  maskNumber(String userPhoneNumber) {
+    int maskLength = userPhoneNumber.length - 3;
+    return userPhoneNumber.replaceRange(4, maskLength, '*' * maskLength);
+  }
+  void verifiedSuccess() {
+    Navigator.of(context).pushNamed('/home',arguments: [currentUser.name,currentUser.phoneNumber]);
+         print("Successfully Verified user number");
   }
 
 }

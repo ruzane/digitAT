@@ -35,7 +35,7 @@ class RouteGenerator {
       case '/phone':
         return MaterialPageRoute(builder: (_) => PhoneLogin());
       case '/verification':
-        return MaterialPageRoute(builder: (_) => VerificationNumber(data: args));
+        return MaterialPageRoute(builder: (_) => VerificationNumber("",""));
       case '/createAcount':
         return MaterialPageRoute(builder: (_) => CreateAcount()); 
         case '/homeoptions':

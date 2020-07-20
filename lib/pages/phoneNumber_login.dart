@@ -1,7 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
+import 'package:digitAT/widgets/alerts.dart';
+import 'package:flutter_country_picker/flutter_country_picker.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:digitAT/pages/verification_number.dart';
 class PhoneLogin extends StatefulWidget {
   @override
   _PhoneLoginState createState() => _PhoneLoginState();
@@ -69,22 +74,25 @@ class _PhoneLoginState extends State<PhoneLogin> {
                             borderRadius: BorderRadius.circular(12.0),                          
                           ),
                             child:Center(
-                              child: FormBuilderTextField(
-                                initialValue: '',
-                                attribute: 'CountryID',
-                              validators: [
-                                FormBuilderValidators.required()
-                              ],
-                              keyboardType: TextInputType.number,                            
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(right: 3,left: 3),
-                                border: InputBorder.none, 
-                                prefixText: "+",
-                                prefixStyle: TextStyle(
-                                  color: Colors.black
-                                ),
+                              child: CountryPicker(
+                                dense: false,
+                                showFlag:
+                                true, //displays flag, true by default
+                                showDialingCode:
+                                true, //displays dialing code, false by default
+                                showName: true, //eg. 'GBP'
+                                onChanged: (Country country) {
+                                  setState(() {
+                                    _selected = country;
+                                  });
+                                },
+                                dialingCodeTextStyle:  TextStyle(
+                                  fontSize:
+                                  (18),),
+                                nameTextStyle:  TextStyle(
+                                  fontSize:(18),),
+                                selectedCountry: _selected,
                               ),
-                          ),
                             ),
                         ),
                         Expanded(
@@ -125,7 +133,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                     child: RaisedButton(
                       color: Theme.of(context).accentColor,
                       onPressed: (){
-                        Navigator.of(context).pushNamed('/verification');
+                        sendOTP(context);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
@@ -152,5 +160,81 @@ class _PhoneLoginState extends State<PhoneLogin> {
         ),
     );
   }
-    
+  Country _selected=Country.ZW;
+  String phoneNo;
+  String verificationId;
+  String errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController phoneNumberController = new TextEditingController();
+  void sendOTP(BuildContext context) {
+    this.phoneNo="+"+this._selected.dialingCode+" "+this.phoneNumberController.text;
+    verifyPhone(this.phoneNo);
+  }
+
+  void verifyUser() {
+
+    print("passing argument"+this.phoneNo);
+    Navigator.of(context).pushNamed('/verification');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) =>
+            VerificationNumber(this.phoneNo,this.verificationId),
+      ),
+    );
+  }
+
+  Future<void> verifyPhone(String userPhoneNumber) async {
+    showAlertDialog(context,"Sending OTP");
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      this.verificationId = verId;
+      verifyUser();
+    };
+    try {
+      Navigator.of(context).pop();
+      await _auth.verifyPhoneNumber(
+          phoneNumber: userPhoneNumber, // PHONE NUMBER TO SEND OTP
+          codeAutoRetrievalTimeout: (String verId) {
+            this.verificationId = verId;
+          },
+          codeSent:
+          smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+          timeout: const Duration(seconds: 45),
+          verificationCompleted: (AuthCredential phoneAuthCredential) {
+            print(phoneAuthCredential);
+
+          },
+          verificationFailed: (AuthException exception) {
+
+            print('${exception.message}');
+          });
+    } catch (e) {
+      handleError(e);
+    }
+  }
+  handleError(PlatformException error) {
+    print("Something went wrong");
+    print(error);
+    Navigator.of(context).pop();
+    switch (error.code) {
+      case 'ERROR_INVALID_VERIFICATION_CODE':
+        FocusScope.of(context).requestFocus(new FocusNode());
+        setState(() {
+          errorMessage = 'You have entered an invalid OTP';
+        });
+//        Navigator.of(context).pop();
+
+//        smsOTPDialog(context).then((value) {
+//          print('sign in');
+//        });
+        break;
+      default:
+        setState(() {
+          errorMessage = error.message;
+          print(errorMessage);
+          Navigator.of(context).pop();
+        });
+
+        break;
+    }
+  }
 }
