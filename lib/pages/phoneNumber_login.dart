@@ -65,35 +65,36 @@ class _PhoneLoginState extends State<PhoneLogin> {
                     key: _formKey,
                     child: Row(
                       children: <Widget>[
-                        Container(
-                          height: 40.0,
-                          width:MediaQuery.of(context).size.width*0.27,
-                          margin: EdgeInsets.only(top: 20.0 ,left: 12.0,right: 12.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1.0,color: Color(0xdddddddd)),
-                            borderRadius: BorderRadius.circular(12.0),                          
-                          ),
-                            child:Center(
-                              child: CountryPicker(
-                                dense: false,
-                                showFlag:
-                                true, //displays flag, true by default
-                                showDialingCode:
-                                true, //displays dialing code, false by default
-                                showName: false, //eg. 'GBP'
-                                onChanged: (Country country) {
-                                  setState(() {
-                                    _selected = country;
-                                  });
-                                },
-                                dialingCodeTextStyle:  TextStyle(
-                                  fontSize:
-                                  (18),),
-                                nameTextStyle:  TextStyle(
-                                  fontSize:(18),),
-                                selectedCountry: _selected,
-                              ),
+                        Expanded(child: Container(
+                            height: 40.0,
+                            width:MediaQuery.of(context).size.width*0.30,
+                            margin: EdgeInsets.only(top: 20.0 ,left: 12.0,right: 12.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0,color: Color(0xdddddddd)),
+                              borderRadius: BorderRadius.circular(12.0),                          
                             ),
+                              child:Center(
+                                child: CountryPicker(
+                                  dense: false,
+                                  showFlag:
+                                  true, //displays flag, true by default
+                                  showDialingCode:
+                                  true, //displays dialing code, false by default
+                                  showName: false, //eg. 'GBP'
+                                  onChanged: (Country country) {
+                                    setState(() {
+                                      _selected = country;
+                                    });
+                                  },
+                                  dialingCodeTextStyle:  TextStyle(
+                                    fontSize:
+                                    (18),),
+                                  nameTextStyle:  TextStyle(
+                                    fontSize:(18),),
+                                  selectedCountry: _selected,
+                                ),
+                              ),
+                          ),
                         ),
                         Expanded(
                           child: Container(
