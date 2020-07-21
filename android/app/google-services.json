@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "15851998366",
+    "firebase_url": "https://digitat-project.firebaseio.com",
+    "project_id": "digitat-project",
+    "storage_bucket": "digitat-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15851998366:android:b2dfaa68feda0597ec7f8f",
+        "android_client_info": {
+          "package_name": "com.example.digitAT"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15851998366-grsmpmbflp5ddr25rkpe6r6i8u1hev32.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.digitAT",
+            "certificate_hash": "eb5ccab2d95941ae459609302ff4269ae606fbc1"
+          }
+        },
+        {
+          "client_id": "15851998366-rk64k94jaa4veipk4u448ajevm5qsa1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-PHODUypR4L0-XCv0lu3kqFRslKiAb0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15851998366-rk64k94jaa4veipk4u448ajevm5qsa1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
